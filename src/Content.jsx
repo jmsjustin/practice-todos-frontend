@@ -8,7 +8,8 @@ export function Content() {
   const [todos, setTodos] = useState([]);
 
   const handleIndexTodos = () => {
-    console.log("http://localhost:3000/todos.json").then((response) => {
+    console.log("handleIndexTodos");
+    axios.get("http://localhost:3000/todos.json").then((response) => {
       console.log(response.data);
       setTodos(response.data);
     });
