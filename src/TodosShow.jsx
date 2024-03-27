@@ -6,6 +6,10 @@ export function TodosShow(props) {
     props.onUpdateTodo(props.todo.id, params, () => event.target.reset());
   };
 
+  const handleClick = () => {
+    props.onDestroyTodo(props.todo.id);
+  };
+
   return (
     <div>
       <h1>Todo Information</h1>
@@ -28,6 +32,7 @@ export function TodosShow(props) {
         </div>
         <button type="submit">Update Todo</button>
       </form>
+      <button onClick={handleClick}>Delete Todo</button>
     </div>
   );
 }
