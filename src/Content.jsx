@@ -53,6 +53,14 @@ export function Content() {
     });
   };
 
+  const handleDestroyTodo = (id) => {
+    console.log("handleDestroyTodo", id);
+    axios.delete(`http://localhost:3000/todos/${id}.json`).then((response) => {
+      setTodos(todos.filter((todo) => todo.id !== id));
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsTodosShowVisible(false);
@@ -68,7 +76,7 @@ export function Content() {
       <LogoutLink todos={todos} />
       <TodosIndex todos={todos} onShowTodo={handleShowTodo} />
       <Modal show={isTodosShowVisible} onClose={handleClose}>
-        <TodosShow todo={currentTodo} onUpdateTodo={handleUpdateTodo} />
+        <TodosShow todo={currentTodo} onUpdateTodo={handleUpdateTodo} onDestroyTodo={handleDestroyTodo} />
       </Modal>
     </main>
   );
