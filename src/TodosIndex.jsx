@@ -9,6 +9,7 @@ export function TodosIndex(props) {
           <p>{todo.description}</p>
           <p>{todo.deadline}</p>
           <p>{todo.completed}</p>
+          <button onClick={() => props.onShowTodo(todo)}>More Info</button>
         </div>
       ))}
     </div>
