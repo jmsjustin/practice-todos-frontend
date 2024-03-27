@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { TodosIndex } from "./TodosIndex";
 import { TodosNew } from "./TodosNew";
+import { Signup } from "./Signup";
+import { Login } from "./Login";
+import { LogoutLink } from "./LogoutLink";
 import { TodosShow } from "./TodosShow";
 import { Modal } from "./Modal";
 
@@ -60,6 +63,9 @@ export function Content() {
   return (
     <main>
       <TodosNew onCreateTodo={handleCreateTodo} />
+      <Signup todos={todos} />
+      <Login todos={todos} />
+      <LogoutLink todos={todos} />
       <TodosIndex todos={todos} onShowTodo={handleShowTodo} />
       <Modal show={isTodosShowVisible} onClose={handleClose}>
         <TodosShow todo={currentTodo} onUpdateTodo={handleUpdateTodo} />
