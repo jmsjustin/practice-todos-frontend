@@ -3,9 +3,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { TodosIndex } from "./TodosIndex";
 import { TodosNew } from "./TodosNew";
+import { TodosShow } from "./TodosShow";
+import { Modal } from "./Modal";
 
 export function Content() {
   const [todos, setTodos] = useState([]);
+  const [isTodosShowVisible, setIsTodosShowVisible] = useState(false);
+  const [currentTodo, setCurrentTodo] = useState({});
 
   const handleIndexTodos = () => {
     console.log("handleIndexTodos");
@@ -23,12 +27,26 @@ export function Content() {
     });
   };
 
+  const handleShowTodo = (todo) => {
+    console.log("handleShowTodo", todo);
+    setIsTodosShowVisible(true);
+    setCurrentTodo(todo);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsTodosShowVisible(false);
+  };
+
   useEffect(handleIndexTodos, []);
 
   return (
     <main>
       <TodosNew onCreateTodo={handleCreateTodo} />
-      <TodosIndex todos={todos} />
+      <TodosIndex todos={todos} onShowTodo={handleShowTodo} />
+      <Modal show={isTodosShowVisible} onClose={handleClose}>
+        <TodosShow todo={currentTodo} />
+      </Modal>
     </main>
   );
 }
