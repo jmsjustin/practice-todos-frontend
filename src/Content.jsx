@@ -33,6 +33,23 @@ export function Content() {
     setCurrentTodo(todo);
   };
 
+  const handleUpdateTodo = (id, params, successCallback) => {
+    console.log("handleUpdateTodo", params);
+    axios.patch(`http://localhost:3000/todos/${id}.json`, params).then((response) => {
+      setTodos(
+        todos.map((todo) => {
+          if (todo.id === response.data.id) {
+            return response.data;
+          } else {
+            return todo;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsTodosShowVisible(false);
@@ -45,7 +62,7 @@ export function Content() {
       <TodosNew onCreateTodo={handleCreateTodo} />
       <TodosIndex todos={todos} onShowTodo={handleShowTodo} />
       <Modal show={isTodosShowVisible} onClose={handleClose}>
-        <TodosShow todo={currentTodo} />
+        <TodosShow todo={currentTodo} onUpdateTodo={handleUpdateTodo} />
       </Modal>
     </main>
   );
